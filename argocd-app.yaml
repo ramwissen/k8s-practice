@@ -4,15 +4,15 @@ metadata:
   name: k8s-practice
   namespace: argocd
 spec:
-  project: default
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
   source:
     repoURL: https://github.com/ramwissen/k8s-practice.git
     targetRevision: HEAD
-    path: .
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
+    path: "."  # Use dot (.) to represent the root directory of your GitHub repo
+  project: default
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: false
+      selfHeal: false
