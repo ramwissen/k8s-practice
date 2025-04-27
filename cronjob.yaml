@@ -17,3 +17,4 @@ spec:
             - -c
             - date; echo Hello from Kubernetes CronJob!
           restartPolicy: OnFailure
+

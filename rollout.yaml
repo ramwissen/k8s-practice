@@ -1,25 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollout-sample
+  name: bluegreen-sample
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: rollout-sample
+      app: bluegreen-sample
   template:
     metadata:
       labels:
-        app: rollout-sample
+        app: bluegreen-sample
     spec:
       containers:
-      - name: rollout-sample
+      - name: bluegreen-sample
         image: nginx:1.19
         ports:
         - containerPort: 80
   strategy:
-    canary:
-      steps:
-      - setWeight: 50
-      - pause: { duration: 30 } # pause 30 seconds before 100%
+    blueGreen:
+      activeService: bluegreen-active
+      previewService: bluegreen-preview
+      autoPromotionEnabled: false  # Manual promotion for full control
+
